@@ -1,0 +1,68 @@
+
+
+<script type="text/javascript">
+ 
+    function updateUserSht(){
+        $("#ShowUserSht").load('/uservote/ShowUserSht/');
+    }
+
+    $(".readdetailbtn").click(function() {
+        var btnvalue = this.value;
+        console.log(btnvalue);
+        var v = '<p>'+ btnvalue + '</p>'
+        $('#debug').append(v)
+        $.ajax({
+            
+        });
+    })
+    
+    $(".deletebtn").click(function() {
+        var btnvalue = this.value;
+        console.log(btnvalue);
+        $('#debug').append('<p>'+ btnvalue + '</p>')
+
+        var deleteurl='/uservote/'+btnvalue +'/delete/'
+        $.get(deleteurl, function(result){
+            $("#ShowUserSht").html(result)
+          });
+
+    })
+
+</script>
+
+
+
+<div id='usershthtml'>
+
+<table  border="1" >
+    <tr>
+        <td>ID</td>
+        <td>记录时间</td>
+        <td>用户ID</td>
+        <td>用户名</td>
+        <td>用户信息</td>
+        <td>编辑</td>
+    </tr>
+
+    {% for user in allusers %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.record_time|date:"Y-m-d H:i:s" }}</td>
+        <td>{{ user.user_id }}</td>
+        <td>{{ user.user_name }}</td>
+        <td>{{ user.user_info }}</td>
+        <td>
+            <button type='button' class='readdetailbtn' onclick='readdetail()' value='{{ user.id }}'>查看详细记录</button>
+            <button type='button' class='deletebtn'     onclick='deleteevent()' value='{{ user.id }}'>删除</button>
+            <button type='button' style="display:none"  class='editbtn'       onclick='editevent()' value='{{ user.id }}'>编辑</button>
+            <button type='button' class='addrecodbtn'   onclick='addrecordevent()' value='{{ user.id }}'>添加用户记录</button>
+        </td>
+    </tr>  
+    {% empty %}
+    <tr> no user yet!</tr>   
+    {% endfor %}
+
+</table>
+
+</div> 
+    

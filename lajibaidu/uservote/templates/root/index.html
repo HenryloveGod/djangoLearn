@@ -1,0 +1,68 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>demo</title>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    function InsertUsertShtDiv(){
+        $("#ShowUserSht").load('/uservote/ShowUserSht/');
+    }
+
+    function addnewuser(){
+        var thediv=document.getElementById("showaddnewuser");
+        console.debug('asdfsadf')
+        if(thediv.style.display=="block"){
+            thediv.style.display='none';
+            $('#addnewuserbtn').html('添加用户')
+        } else {
+            thediv.style.display='block';
+            $("#showaddnewuser").load('/uservote/showaddnewuser/');
+            $('#addnewuserbtn').html('取消添加')
+        }
+
+    }
+
+    $(document).ready(function() {
+        InsertUsertShtDiv();
+		
+	})
+
+
+</script>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'tmp.css' %}">
+
+
+</head>   
+
+<body>
+<div>
+    <h1><a href='/'>返回首页</a></h1>
+</div>
+<div>
+
+
+<button type='button' id='addnewuserbtn'  onclick='addnewuser()' value='{{ user.id }}'>添加用户</button>
+<div id='showaddnewuser'> </div>
+
+<h2>用户列表</h2>
+<div id='ShowUserSht'> </div>
+
+
+<h2>用户打开记录</h2>
+<div id='userrecord'> 
+
+</div>
+
+
+
+<p>debug:</p>
+<div id="debug"></div>
+</div>  
+
+</body>
+</html>
