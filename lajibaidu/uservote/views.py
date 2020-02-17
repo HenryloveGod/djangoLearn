@@ -47,7 +47,7 @@ def ShowUserSht(request):
 
 
 def Showaddnewuser(request):
-    return render(request, 'root/newuser.html', None)
+    return render(request, 'root/AddUser.html', None)
 
 def Addrecord(request):
     return render(request, 'root/addrecord.html', None)
@@ -72,4 +72,33 @@ def delete(request,user_ID):
 
     return HttpResponseRedirect(reverse('uservote:index', args=None))
 
+
+def ShowUserDetail(request,user_ID):
+    try:
+        theuser = UserSht.objects.get(id=user_ID)
+        details = theuser.dailyreport_set.all()
+
+        return render(request, 'root/ShowUserDetail.html',{'details':details,"user_name":theuser.user_name})
+
+    except UserSht.DoesNotExist:
+        return render(request, 'root/index.html',{"result":"user not exist "})
+
+def ShowAddUserDetailHtml(request,user_ID):
+
+    return render(request, 'root/AddUserDetail.html',{"user_ID":user_ID})
+
+def AddUserDetail(request,user_ID):
+    try:
+        theuser = UserSht.objects.get(id=user_ID)
+        q = theuser.dailyreport_set.create(
+            current_location = request.POST['current_location'],
+            is_ok = request.POST['is_ok'], 
+            detail_record_time=timezone.now(),
+        )
+        q.save()
+
+        return render(request, 'root/index.html',{"result":"用户记录已新增 "})
+    except UserSht.DoesNotExist:
+        return render(request, 'root/index.html',{"result":"user not exist "})
+  
 

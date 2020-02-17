@@ -27,7 +27,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('current_location', models.CharField(max_length=200)),
-                ('is_ok', models.BooleanField(default=True)),
+                ('is_ok', models.CharField(max_length=200)),
+                ('detail_record_time', models.DateTimeField('detail_record_time')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='uservote.UserSht')),
             ],
         ),

@@ -26,8 +26,9 @@ class UserSht(models.Model):
 
 class DailyReport(models.Model):
     user = models.ForeignKey(UserSht, on_delete=models.CASCADE)
-    current_location = models.CharField(max_length=200)    #
-    is_ok = models.BooleanField(default=True)               # yes/no
+    current_location = models.CharField(max_length=200)     #
+    is_ok = models.CharField(max_length=200)   
+    detail_record_time = models.DateTimeField('detail_record_time')       # 日期
     
     def __str__(self):
         return self.is_ok

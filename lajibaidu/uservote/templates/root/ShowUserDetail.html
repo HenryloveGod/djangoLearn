@@ -12,13 +12,15 @@
 
         var deleteurl='/uservote/'+btnvalue +'/ShowUserDetail/'
         $.get(deleteurl, function(result){
-            $("#userdetail").html(result)
+            $("#ShowUserSht").html(result)
           });
     })
     
     $(".adddetailbtn").click(function() {
         var btnvalue = this.value;
         console.log(btnvalue);
+        $('#debug').append('<p>'+ btnvalue + '</p>')
+
         var deleteurl='/uservote/'+btnvalue +'/ShowAddUserDetailHtml/'
         $.get(deleteurl, function(result){
             $("#showadduserdetail").html(result)
@@ -40,30 +42,32 @@
 
 
 
-<div id='usershthtml'>
+<div id='userdetailshthtml'>
+
+<h3>用户[{{ user_name }}]详细记录</h3>   
 
 <table  border="1" >
     <tr>
         <td>ID</td>
         <td>记录时间</td>
-        <td>用户ID</td>
-        <td>用户名</td>
-        <td>用户信息</td>
+        <td>现在居住地</td>
+        <td>身体状态</td>
+
         <td>编辑</td>
     </tr>
 
-    {% for user in allusers %}
+    {% for detail in details %}
     <tr>
-        <td>{{ user.id }}</td>
-        <td>{{ user.record_time|date:"Y-m-d H:i:s" }}</td>
-        <td>{{ user.user_id }}</td>
-        <td>{{ user.user_name }}</td>
-        <td>{{ user.user_info }}</td>
+        <td>{{ detail.id }}</td>
+        <td>{{ detail.detail_record_time|date:"Y-m-d H:i:s" }}</td>
+        <td>{{ detail.current_location }}</td>
+        <td>{{ detail.is_ok }}</td>
+ 
         <td>
-            <button type='button' class='readdetailbtn' value='{{ user.id }}'>查看详细记录</button>
+            
             <button type='button' class='deletebtn'     onclick='deleteevent()' value='{{ user.id }}'>删除</button>
             <button type='button' style="display:none"  class='editbtn'       onclick='editevent()' value='{{ user.id }}'>编辑</button>
-            <button type='button' class='adddetailbtn'   value='{{ user.id }}'>添加用户记录</button>
+           
         </td>
     </tr>  
     {% empty %}
@@ -73,4 +77,3 @@
 </table>
 </div> 
     
-<div id='showadduserdetail'> </div>

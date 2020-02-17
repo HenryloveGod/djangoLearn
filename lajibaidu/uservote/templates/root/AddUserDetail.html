@@ -1,0 +1,21 @@
+
+<div >
+    {% if result %}
+    <div>
+        <p>result</p>
+    </div> 
+    {% endif %}
+    
+    <form action="/uservote/{{ user_ID }}/AddUserDetail/" method="post">
+        {% csrf_token %}
+        <p>当前位置：
+            <input type="text" name='current_location' id='1'  value='' placeholder='当前位置'>
+        </p>
+        <p>身体状态：
+            <input type="text" name='is_ok' id='2' value='' placeholder='自由/隔离/已感染'> 
+        </p>
+    
+        <input type="submit" value="用户[{{ user_ID }}] 新增记录" >
+    </form>
+    
+</div>
