@@ -31,9 +31,10 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1','192.168.0.3']
 # Application definition
 
 INSTALLED_APPS = [
+    'neartrans.apps.NeartransConfig',
     'rootentries.apps.RootentriesConfig',
     'uservote.apps.UservoteConfig',
-    'neartrans.apps.NeartransConfig',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -31,7 +31,7 @@ class UserShtConfig(admin.ModelAdmin):
 
 class DailyReportConfig(admin.ModelAdmin):
     """自定制类  使得在admin数据库管理页面可以看到自己想要看的信息"""
-    list_display = ["current_location","detail_record_time"]  # 多对多字段不可以用于此处
+    list_display = ["current_location","detail_record_time",'is_ok']  # 多对多字段不可以用于此处
     list_display_links = ["current_location"]  # 设置可链接的字段  设置后，点击该字段便可以进入编辑页面
     list_filter = ["is_ok"]  # 以所设置的字段作为筛选器 进行记录查询
     list_editable = ["is_ok"]  # 设置可编辑字段，注意：如果在list_display_links中设置了的字段，在此处不可以再设置
@@ -57,4 +57,4 @@ admin.site.register(UserSht, UserShtConfig)
 
 print(admin.site._registry)
 
-admin.site.register(DailyReport)
+admin.site.register(DailyReport,DailyReportConfig)

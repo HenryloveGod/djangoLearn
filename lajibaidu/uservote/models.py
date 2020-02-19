@@ -32,3 +32,27 @@ class DailyReport(models.Model):
     
     def __str__(self):
         return self.is_ok
+
+
+
+
+class poker_report_table(models.Model):
+    user    = models.CharField(max_length=200)
+    wang    = models.IntegerField(default=0)
+    two     = models.IntegerField(default=0)
+    one     = models.IntegerField(default=0)
+    king     = models.IntegerField(default=0)
+    queen      = models.IntegerField(default=0)
+    jack    = models.IntegerField(default=0)
+    ten     = models.IntegerField(default=0)
+    nine    = models.IntegerField(default=0)
+    eight   = models.IntegerField(default=0)
+    seven   = models.IntegerField(default=0)
+    six     = models.IntegerField(default=0)
+    five    = models.IntegerField(default=0)
+    four    = models.IntegerField(default=0)
+    three   = models.IntegerField(default=0)
+
+class poker_log_table(models.Model):
+    user    = models.CharField(max_length=200)
+    log     = models.CharField(max_length=200)

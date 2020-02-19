@@ -1,0 +1,74 @@
+
+
+ 
+    <script type="text/javascript">
+    
+        function look_more_info_fail_count(the_id){
+  
+            var fail_part=document.getElementById("fail_count_part");
+
+            var fail_title = document.getElementById("fail_count_part_title");
+            fail_title.innerHTML = ( '['+the_id + '] Fail Count 详细信息');
+            if(fail_part.style.display=="none"){
+                fail_part.style.display='block';
+            } 
+            var fail_detail=document.getElementById("fail_count_details_div");
+            var url= '/neartrans/get_fail_detail_by_test_id?test_id=' + the_id ;
+  
+            $("#fail_count_details_div").load(url);
+
+        }
+   
+    
+    </script>
+
+
+
+<div >
+    <table  border="1" >
+        <tr>
+            <td>ID</td>
+            <td>上传时间</td>
+            <td>test_id</td>
+            <td>运行次数</td>
+            <td>运行时间</td>
+            <td>fail次数</td>
+            <td>成功率</td>
+    
+            <td>编辑</td>
+        </tr>
+    
+        {% for record in test_tool_report %}
+        <tr>
+            <td>{{ record.id }}</td>
+            <td>{{ record.record_time|date:"Y-m-d H:i:s" }}</td>
+            <td><a href='javascript:;' onclick="javascript:look_more_info_test_id()"> {{ record.test_id }}</a> </td>
+            <td>{{ record.run_count }}</td>
+            <td>{{ record.run_time }}</td>
+            <td><a href='javascript:;' onclick="javascript:look_more_info_fail_count('{{ record.test_id }}')"> {{ record.fail_count }}</a></td>
+            <td>{{ record.pass_yield }}%</td>
+            <td>
+                <button type='button' class='deletebtn'     onclick='deleteevent()' value='{{ user.id }}'>更多信息</button>
+               
+            </td>
+        </tr>
+        {% empty %}
+        <tr> no user yet!</tr>   
+        {% endfor %}
+    
+    </table>
+
+
+
+    <div id='fail_count_part' style="display:none">
+        <h4 id='fail_count_part_title'>Fail Count 详细信息</h4>    
+        <div id='fail_count_details_div'></div>
+    </div>
+
+
+
+
+
+
+
+    </div> 

@@ -8,11 +8,20 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from datetime import datetime
 
+from uservote.poker import poker,pokerlog
 
+test_poker = poker()
 
-def bukeIndex():
-    pass
+def poker_index(request,action,user):
+    
+    inputstr=request.POST['inputstr'],
 
+    if 'clear' in action:
+        test_poker.pokerinit()
+    elif 'addpoker' in action:
+        result = test_poker.APIaddpoker(inputstr,user)
+ 
+    return render(request, 'poker/index.html',{"test_poker":test_poker})
 
 class IndexView(ListView):
  

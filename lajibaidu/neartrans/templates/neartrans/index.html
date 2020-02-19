@@ -1,0 +1,101 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>demo</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script type="text/javascript">
+    
+        function show_fail_distribution_html(){
+            $("#showfaillist_btn").load('/neartrans/show_fail_distribution/');
+        }
+    
+        function addnewuser(){
+            var thediv=document.getElementById("showaddnewuser");
+            console.debug('asdfsadf')
+            if(thediv.style.display=="block"){
+                thediv.style.display='none';
+                $('#addnewuserbtn').html('添加用户')
+            } else {
+                thediv.style.display='block';
+                $("#showaddnewuser").load('/uservote/showaddnewuser/');
+                $('#addnewuserbtn').html('取消添加')
+            }
+    
+        }
+
+        function show_report_test_tool_record_html(){
+
+            $("#show_test_tool_report_record_div").load('/neartrans/show_report_test_tool_record_html/');
+        }
+
+        function update_all_data_btn(){
+
+        }
+
+        $("#update_all_data_btn").click(function() {
+            $.get("/neartrans/udpate_all_data/"); 
+            window.location.reload();
+        })
+
+        $(document).ready(function() {
+            show_fail_distribution_html();
+            show_report_test_tool_record_html();
+        })
+    
+    
+    </script>
+    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tmp.css' %}">
+    
+    
+    </head>   
+
+
+<body>
+
+
+<div>
+<button id='update_all_data_btn'> 更新所有数据</button>
+</div>
+
+
+<div>
+    <h2>当前最新测试记录</h2>
+    <div id='show_test_tool_report_record_div'  >  </div> 
+
+
+</div> 
+
+ 
+<div>
+    <h2>显示fail分布</h2>
+    <div id='showfaillist_div'  >  </div> 
+
+
+
+
+
+</div> 
+
+
+<div>
+    <h2>各场景成功率统计表</h2>
+    <div id='evnyieldreport_div'>  </div>   
+</div> 
+
+
+<div style="display: none;">
+    <div id='evnyieldreport_test_record_title'>xxx 场景 测试记录分布</div>   
+    <div id='env_detail_'  >列表</div>   
+</div> 
+
+
+<div style="display: none;">
+    <div id='test_id_log_title'>xxx test id  日志  分布</div>   
+    <div id='evnyieldreport_div'  >  </div>   
+</div> 
+
+    
+</body>

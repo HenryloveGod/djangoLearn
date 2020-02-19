@@ -1,5 +1,12 @@
 
 
+class pokerlog:
+
+    id=1,
+    user=None,
+    log=None
+
+
 class poker:
 
     pokerlist={
@@ -9,7 +16,7 @@ class poker:
         4:'k',
         5:'q',
         6:'j',
-        7:'a',
+        7:'0',
         8:'9',
         9:'8',
         10:'7',
@@ -18,6 +25,10 @@ class poker:
         13:'4',
         14:'3',
     }
+
+    userlog=[]
+    lognum = 0
+
     userme={}
     usera={}
     userb={}
@@ -36,8 +47,11 @@ class poker:
     perUserNum=27
     perPokerNum = 8
 
-    def pokerinit(self):
+    friend=""
 
+    def pokerinit(self):
+        self.userlog.clear()
+  
         self.surplusNums["unknown"] = self.perUserNum * 4 
         self.surplusNums["a"] = self.perUserNum
         self.surplusNums["b"] = self.perUserNum
@@ -53,7 +67,8 @@ class poker:
     def test(self):
 
         self.UpdateUnknownpoker()
-        print("===%d==[%d]===[%d]===[%d]" 
+        print('朋友是：%s' % self.friend)
+        print("共剩余牌数：[%d]，用户A剩余牌数：[%d]，用户B剩余牌数：[%d]，用户C剩余牌数：[%d]" 
             %(self.surplusNums["unknown"],
             self.surplusNums["a"],
             self.surplusNums["b"],
@@ -68,43 +83,75 @@ class poker:
                 a="%s     out" %(a)
 
             if i in self.usera:
-                a="%s A[%d] " %(a,self.usera[i])
+                a="%s                   A[%d] " %(a,self.usera[i])
             else:
-                a="%s A[ ] " %(a) 
+                a="%s                   A[ ] " %(a) 
 
             if i in self.userb:
-                a="%s B[%d] " %(a,self.userb[i])
+                a="%s                   B[%d] " %(a,self.userb[i])
             else:
-                a="%s B[ ] " %(a) 
+                a="%s                   B[ ] " %(a) 
 
             if i in self.userc:
-                a="%s C[%d] " %(a,self.userc[i])
+                a="%s                   C[%d] " %(a,self.userc[i])
             else:
-                a="%s C[ ] " %(a) 
+                a="%s                   C[ ] " %(a) 
             
             print(a)
-    
+
+        for l in self.userlog:
+            print("%d %s %s " %(l.id,l.user,l.log))
+
 
     def calcupokerbyuser(self,userx):
         for u in userx:
-            if userx[u] > 0:
-                self.unknowpokers[u] = self.unknowpokers[u] - userx[u]
-                
+            isFound=False
+            for k in self.pokerlist:
+                if u in self.pokerlist[k]:
+                    isFound=True
+                    break
+            if isFound is False:
+                print('input %s error,continue' % u) 
+                continue
+            else:
+                if userx[u] > 0:
+                    self.unknowpokers[u] = self.unknowpokers[u] - userx[u]
+    
+    #更新位置牌
     def UpdateUnknownpoker(self):
         self.calcupokerbyuser(self.userme)
         self.calcupokerbyuser(self.usera)
         self.calcupokerbyuser(self.userb)
         self.calcupokerbyuser(self.userc)
         
+    def GetPokerStringNum(self,inputstr):
+        num = 0
+        for u in inputstr:
+            for k in self.pokerlist:
+                if u in self.pokerlist[k]:
+                    num = num+1
+
+        return num
+
     def addoutpoker(self,inputstr,userx,x):
+        self.lognum = self.lognum + 1
+        tmplog = pokerlog() 
+        tmplog.id = self.lognum
+        tmplog.user = x
+        tmplog.log = inputstr
+
+        self.userlog.append(tmplog)
+
+        print('您已输入有效字符数：%d' % self.GetPokerStringNum(inputstr))
         for i in inputstr:
             if i in userx:
                 userx[i] = userx[i] + 1
             else:
                 userx[i] = 1
             self.surplusNums[x] = self.surplusNums[x] - 1
-            self.surplusNums["unknown"] = self.surplusNums[x] - 1
+            self.surplusNums["unknown"] = self.surplusNums["unknown"] - 1
         
+
         return userx
 
     def addpoker_me(self,inputstr):
@@ -120,15 +167,43 @@ class poker:
         self.addoutpoker(inputstr,self.userc,'c')
 
 
+    def APIaddpoker(self,inputstr,userstr):
+
+        if 'm' in userstr:
+            a.addpoker_me(inputstr)
+        elif 'a' in userstr:
+            a.addpoker_usera(inputstr)
+        elif 'b' in userstr:
+            a.addpoker_usera(inputstr)
+        elif 'c' in userstr:
+            a.addpoker_usera(inputstr)
+        else:
+            return False
+        
+        return True
+
+
 if __name__ == '__main__':
     a = poker()
     a.pokerinit()
 
-    a.addpoker_me("w222111kqqjjaa9888777654433")
-    a.addpoker_usera("33345")
-    a.addpoker_usera("jjj45")
-    a.addpoker_userc("22233")
+    while True:
+        ps = input("输入已知的牌(m:a:b:c)")
+        if 'm+' in ps[0:2]:
+            a.addpoker_me(ps[2:])
+        elif 'a+' in ps[0:2]:
+            a.addpoker_usera(ps[2:])
+        elif 'b+' in ps[0:2]:
+            a.addpoker_userb(ps[2:])
+        elif 'c+' in ps[0:2]:
+            a.addpoker_userc(ps[2:])
+        elif 'p+' in ps[0:2]:
+            a.friend = ps[2:]
+        else:
+            print("input error,please input again with 'm:' or 'a:' or 'b:' or 'c:' ")
 
-    a.test()
+        a.test()
+
+
 
 

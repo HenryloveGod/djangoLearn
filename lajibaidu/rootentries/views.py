@@ -2,8 +2,11 @@ from django.http import HttpResponse
 from django.template import loader
 
 rooturls={
-    "uservote":"uservote/"
+    "wifi/bt测试":"neartrans/",
+    "uservote":"uservote/",
+
 }
+
 
 def index(request):
     template = loader.get_template('rootentries/index.html')
