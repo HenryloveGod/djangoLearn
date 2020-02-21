@@ -41,27 +41,27 @@ class definition_wifi_ver_table_admin(admin.ModelAdmin):
     fields = ['wifi_ver']
 
 class test_id_belong_table_admin(admin.ModelAdmin):
-    list_display = ('record_time', 'test_des','env','pc','phone','more_info') 
-    fields = ('test_des','env','pc','phone','more_info')
+    list_display = ('record_time', 'test_des','env','pc','phone','more_info','chose_log_table') 
+    fields = ('test_des','env','pc','phone','more_info','chose_log_table')
 
 
 class test_bt_rfcomm_run_log_table_admin(admin.ModelAdmin):
-    list_display = ('test_id','test_No','socket_cnn','socket_trans','result','bt_fail','remark_info') 
-    fields = ('test_id','test_No','socket_cnn','socket_trans','result','bt_fail','remark_info')
+    list_display = ('test_des','test_No','socket_cnn','socket_trans','result','bt_fail','remark_info') 
+    fields = ('test_des','test_No','socket_cnn','socket_trans','result','bt_fail','remark_info')
 
 
 class test_softap_trans_run_log_table_admin(admin.ModelAdmin):
-    list_display = ('test_id','test_No','bt_socket_cnn','bt_socket_trans',
+    list_display = ('test_des','test_No','bt_socket_cnn','bt_socket_trans',
         'create_softap','connect_sofap','tcp_udp_connect','tcp_udp_speed','destroy_softap',
         'result','bt_fail','wifi_fail','remark_info') 
-    fields = ('test_id','test_No','result','bt_fail','wifi_fail','remark_info','bt_socket_cnn','bt_socket_trans',
+    fields = ('test_des','test_No','result','bt_fail','wifi_fail','remark_info','bt_socket_cnn','bt_socket_trans',
         'create_softap','connect_sofap','tcp_udp_connect','tcp_udp_speed','destroy_softap' ) 
 
 
 
 class report_test_by_test_tool_table_admin(admin.ModelAdmin):
-    list_display = ('test_id','run_count','run_time','fail_count','pass_yield')
-    fields = ('test_id','run_count','run_time','fail_count','pass_yield')
+    list_display = ('test_des','run_count','run_time','fail_count','pass_yield')
+    fields = ('test_des','run_count','run_time','fail_count','pass_yield')
 
 
 admin.site.register(definition_pc_table,definition_pc_table_admin)
