@@ -32,7 +32,7 @@
             <tr>
                 <th>ID</td>
                 <th>上传时间</td>
-                <th>test_des</td>
+                <th>test_ID</td>
                 <th>运行次数</td>
                 <th>运行时间</td>
                 <th>fail次数</td>
@@ -46,8 +46,10 @@
         {% for record in test_tool_report %}
         <tr>
             <td>{{ record.id }}</td>
+            
             <td>{{ record.record_time|date:"Y-m-d H:i:s" }}</td>
-            <td><a href='javascript:;' onclick="javascript:look_more_info_test_des()"> {{ record.test_des }}</a> </td>
+
+            <td><a href='javascript:;' onclick="javascript:look_more_info_fail_count('{{ record.test_des }}')"> {{ record.test_des }}</a></td>
             <td>{{ record.run_count }}</td>
             <td>{{ record.run_time }}</td>
             <td><a href='javascript:;' onclick="javascript:look_more_info_fail_count('{{ record.test_des }}')"> {{ record.fail_count }}</a></td>
@@ -66,14 +68,8 @@
 
 
     <div id='fail_count_part' style="display:none;" , class='littleDivblock'>
-        <h4 id='fail_count_part_title'>Fail Count 详细信息</h4>    
+        <h4 id='fail_count_part_title'>Fail 详细信息</h4>    
         <div id='fail_count_details_div'></div>
     </div>
-
-
-
-
-
-
 
     </div> 

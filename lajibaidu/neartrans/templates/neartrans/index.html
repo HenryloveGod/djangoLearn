@@ -38,8 +38,6 @@
 
         
             $("#add_default_records").click(function() {
-                console.log('xxxx');
-    
                 $.get('/neartrans/add_default_records/', function(result){
                     $("#debugdiv").html('result')
                   });
@@ -50,10 +48,6 @@
 
                 window.location.reload();
             })
-
-
-
-
 
         })
     
@@ -73,8 +67,8 @@
 <button id='add_default_records'> 添加虚拟记录</button>
 </div>
 
-<div class="article" >
-    <div class ='article-body'>
+<div class="article" border="1" >
+    <div class ='article-body' >
         <h2>当前最新测试记录</h2>
         <div id='show_test_tool_report_record_div'  >  </div> 
     </div> 

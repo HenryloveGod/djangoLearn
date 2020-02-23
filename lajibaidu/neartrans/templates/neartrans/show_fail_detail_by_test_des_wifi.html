@@ -1,0 +1,64 @@
+<div> 
+    {% if test_id_table %}
+        <p><label>测试场景：</label> {{ test_id_table.env }}</p>
+        <p><label>PC信息：</label> {{ test_id_table.pc }}</p>
+        <p><label>手机信息：</label> {{ test_id_table.phone }}</p>
+
+    {% endif %}
+
+</div>
+
+
+
+
+<div   >
+    <table style="font-size:60%;" border="1" >
+        <thread>
+            <th>NO.</th>
+            <th>场景描述</th>
+            <th>蓝牙连接耗时</th>
+            <th>蓝牙传输耗时</th>
+            <th>创建热点耗时</th>
+            <th>销毁热点耗时</th>
+            <th>连接AP耗时</th>
+            <th>tcp_udp连接耗时</th>
+            <th>tcp_udp速率</th>
+            <th>结果</th>
+            <th>蓝牙fail信息</th>
+            <th>wifi fail信息</th>
+            <th>备注</th>
+    
+        </thread>
+    
+        {% for record in test_tool_report %}
+        <tr>
+            <td>{{ record.test_No }}</td>
+            <td>{{ record.test_des }}</td>
+            <td>{{ record.bt_socket_cnn }}</td>
+            <td>{{ record.bt_socket_trans }}</td>
+            <td>{{ record.create_softap }}</td>
+            <td>{{ record.destroy_softap }}</td>
+            <td>{{ record.connect_sofap }}</td>
+            <td>{{ record.tcp_udp_connect }}</td>
+            <td>{{ record.tcp_udp_speed }}</td>
+  
+            <td>{{ record.result }}</td>
+            <td >
+                <font color="red">
+                    {% if record.bt_fail is 'null' %} 
+                        {{record.bt_fail}}  
+                    {% endif %}
+                </font>  
+            </td>
+            <td ><font color="red">{% if record.wifi_fail != 'null' %}{{record.wifi_fail}}{% endif %}  </font>  </td>
+            <td>{% if record.remark_info != 'null' %} record.remark_info {% endif %}</td>
+ 
+        </tr>
+        {% empty %}
+        <tr> no user yet!</tr>   
+        {% endfor %}
+    
+    </table>
+
+
+   </div> 

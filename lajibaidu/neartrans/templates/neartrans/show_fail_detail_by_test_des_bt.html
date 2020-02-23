@@ -1,7 +1,19 @@
 
+<div> 
+    {% if test_id_table %}
+        <p><label>测试场景：</label> {{ test_id_table.env }}</p>
+        <p><label>PC信息：</label> {{ test_id_table.pc }}</p>
+        <p><label>手机信息：</label> {{ test_id_table.phone }}</p>
 
-<div   >
-    <table style="font-size:60%;" border="1" >
+    {% endif %}
+
+</div>
+
+
+
+
+<div  style="font-size:60%;" border="1" >
+    <table border="1" >
         <thread>
             <th>NO.</th>
             <th>场景描述</th>
@@ -21,7 +33,7 @@
             <td>{{ record.socket_trans }}</td>
             <td>{{ record.result }}</td>
             <td ><font color="red">{{ record.bt_fail }}</font>  </td>
-            <td>{% if record.remark_info != 'null' %}record.remark_info{% endif %}</td>
+            <td>{% if record.remark_info != 'null' %} record.remark_info {% endif %}</td>
  
         </tr>
         {% empty %}
@@ -30,11 +42,4 @@
     
     </table>
 
-
-
-    <div id='fail_detail_part' style="display:none">
-        <h4 id='fail_count_part_title'>Fail Count 详细信息</h4>    
-        <div id='fail_count_details_div'></div>
-    </div>
-
-    </div> 
+</div> 
